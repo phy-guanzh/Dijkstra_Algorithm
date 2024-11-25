@@ -1,6 +1,6 @@
-# :earth_americas: GDP dashboard template
+# :earth_asia: Find the Shortest Path For your Journey!
 
-A simple Streamlit app showing the GDP of different countries in the world.
+The Dijkstra Algorithm is applied to search for the shortest path between two stations in a specified network
 
 [![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://gdp-dashboard-template.streamlit.app/)
 
