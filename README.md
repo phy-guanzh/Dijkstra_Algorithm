@@ -2,7 +2,7 @@
 
 The Dijkstra Algorithm is applied to search for the shortest path between two stations in a specified network
 
-[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://gdp-dashboard-template.streamlit.app/)
+[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://path-dashboard-dijkstra-zhe.streamlit.app/)
 
 ### How to run it on your own machine
 
