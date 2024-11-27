@@ -8,6 +8,7 @@ import time
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 import requests
+import os
 
 from selenium import webdriver
 from bs4 import BeautifulSoup
@@ -164,7 +165,7 @@ The Dijkstra Algorithm is applied to search for the shortest path between two st
 
 inf = np.inf
 
-map_image_path = "./test.png"
+map_image_path = os.path.join(os.path.dirname(__file__), "test.png")
 img = mpimg.imread(map_image_path)
 
 img_width, img_height = 53.5709, (29)*1.8
