@@ -164,7 +164,7 @@ The Dijkstra Algorithm is applied to search for the shortest path between two st
 
 inf = np.inf
 
-map_image_path = "/Users/zheguan/DDA/Python/test.png"
+map_image_path = "./test.png"
 img = mpimg.imread(map_image_path)
 
 img_width, img_height = 53.5709, (29)*1.8
