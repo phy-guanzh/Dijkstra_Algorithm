@@ -1,2 +1,8 @@
 streamlit
 pandas
+numpy
+matplotlib
+requests
+selenium
+beautifulsoup4
+
