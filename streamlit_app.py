@@ -164,8 +164,16 @@ The Dijkstra Algorithm is applied to search for the shortest path between two st
 ''
 
 inf = np.inf
+st.write(f"Current working directory: {os.getcwd()}")
 
-map_image_path = os.path.join(os.path.dirname(__file__), "test.png")
+# 打印应用程序文件路径
+st.write(f"Script file directory: {Path(__file__).parent}")
+
+# 检查图片是否存在
+map_image_path = Path(__file__).parent / "test.png"
+st.write(f"Image path: {map_image_path}")
+st.write(f"Image exists: {map_image_path.exists()}")
+#map_image_path = os.path.join(os.path.dirname(__file__), "test.png")
 img = mpimg.imread(map_image_path)
 
 img_width, img_height = 53.5709, (29)*1.8
