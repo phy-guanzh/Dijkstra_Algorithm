@@ -164,16 +164,7 @@ The Dijkstra Algorithm is applied to search for the shortest path between two st
 ''
 
 inf = np.inf
-st.write(f"Current working directory: {os.getcwd()}")
-
-# 打印应用程序文件路径
-st.write(f"Script file directory: {Path(__file__).parent}")
-
-# 检查图片是否存在
-map_image_path = Path(__file__).parent / "test.png"
-st.write(f"Image path: {map_image_path}")
-st.write(f"Image exists: {map_image_path.exists()}")
-#map_image_path = os.path.join(os.path.dirname(__file__), "test.png")
+map_image_path = os.path.join(os.path.dirname(__file__), "test.png")
 img = mpimg.imread(map_image_path)
 
 img_width, img_height = 53.5709, (29)*1.8
@@ -227,7 +218,6 @@ network = {
 
 df = pd.DataFrame(network)
 sorted_df = df.sort_index(axis=0).sort_index(axis=1)
-
 
 uploaded_file = st.file_uploader("Choose a CSV file to upload, otherwise default network will be used:", type="csv")
 upload_settings = st.checkbox(
@@ -307,7 +297,7 @@ if transfer_times_settings:
 lowest_price_settings = st.checkbox(
     "Prefer lowest price with solid price",
     help="Check this box when you prefer the lowest price to travel:)                                              "
-         "\n **NOTE: THIS IS TRAIL OPTION, PRICES IS SCRABED FROM KAYAK WEBSITE**"
+         "\n **NOTE: This function is only available for local runs as the ticket price is automatically retrieved in real-time from the KAYAK website.**"
 )
 
 airport_codes = {
