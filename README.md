@@ -96,7 +96,7 @@ You can either access the online application or run it locally.
 
       *Find the shortest path from Arkhangelsk to London:*
    
-      ```
+      ```python
       python Dijkstra_main.py -f data/network.csv -s Arkhangelsk -e London
       ```
       *Output*
