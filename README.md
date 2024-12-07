@@ -33,7 +33,7 @@ You can either access the online application or run it locally.
 
 1. **Online dashboard application**
 
-   Please go to [![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://path-dashboard-dijkstra-zhe.streamlit.app/)
+   Please go to [![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://dashboard-dijkstra-zhe.streamlit.app/)
 
 2. ##### Run dashboard application locally
 
