@@ -5,7 +5,7 @@ Dijkstra's Algorithm is a widely used algorithm to solve the single-source short
 
 For more information, check the [Wikipedia on Dijkstra's Algorithm](https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm).
 
-##How to run
+## How to run
 
 #### 1. Local Execution
 
