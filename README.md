@@ -20,7 +20,7 @@ To run the algorithm locally, follow these steps:
    python Dijkstra_main.py -f [file_path] -s [start_point] -e [end_point]
    ```
    
-   - **`file_path`**: Path to the map file (e.g., `network.csv`). If omitted, the default `network.csv` file will be used.
+   - **`file_path`**: Path to the map file (e.g., `data/network.csv`). If omitted, the default `data/network.csv` file will be used.
    - **`start_point`**: The starting node for the algorithm.
    - **`end_point`**: The target node. If omitted, all possible routes from the start point will be displayed.
    
