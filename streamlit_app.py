@@ -26,7 +26,6 @@ st.set_page_config(
 
 def check_symmtric(sorted_df):
     difference_no_nan = (sorted_df != sorted_df.transpose()) & sorted_df.notna() & sorted_df.transpose().notna()
-
     asymmetric_elements_no_nan = difference_no_nan[difference_no_nan].stack()
 
     for index in asymmetric_elements_no_nan.index:
@@ -97,9 +96,9 @@ def find_lowest_price1(city_pair="EDI-LHR", start_date=datetime.today().strftime
 
     prices = []
     for div in soup.findAll('div', attrs={'class': 'f8F1-price-text'}):
-        price_text = div.text.strip()  # 提取价格文本
+        price_text = div.text.strip()  
         if price_text.startswith('$'):
-            price = int(price_text[1:])  # 去掉 "$" 并转换为整数
+            price = int(price_text[1:])  
             prices.append(price)
     driver.quit()
     if prices:
