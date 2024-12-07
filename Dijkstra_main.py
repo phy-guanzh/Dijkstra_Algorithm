@@ -3,7 +3,7 @@ from classes.Dijkstra_class import *
 
 def Dijktra_main():
 
-    print(f'Welcome Dijktra Algorithm')
+    print(f'**Welcome to Dijktra Algorithm tool**')
     parser = argparse.ArgumentParser(description='map information, start_point and possible end_point')
 
     parser.add_argument('-f', '--file_path', default='data/network.csv', help='input the csv map path')

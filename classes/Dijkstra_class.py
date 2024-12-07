@@ -153,7 +153,7 @@ class Dijkstra:
             (
                 f'Start Point: {start_point} \n'
                 f'End Point: {item} \n'
-                f'Time: {Ys[item]}, \n'
+                f'Time: {Ys[item]} h, \n'
                 f'Path: {" or ".join("->".join(item2[::-1]) for item2 in P[item])} \n'
             )
             for item in points_end
