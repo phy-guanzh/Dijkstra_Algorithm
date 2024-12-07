@@ -27,7 +27,7 @@ To run the algorithm locally, follow these steps:
 
 #### 2. Streamlit Dashboard
 
-A Streamlit dashboard is provided, offering an interface and additional functionality.   
+A Streamlit dashboard is provided, offering an interface and additional functionality. More infomation about this template can be found in the [Link](https://github.com/streamlit/gdp-dashboard-template).  
 
 You can either access the online application or run it locally.
 

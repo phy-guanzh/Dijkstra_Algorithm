@@ -9,6 +9,7 @@ import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 import requests
 import os
+from classes.streamlit_class import *
 
 from selenium import webdriver
 from bs4 import BeautifulSoup
@@ -18,129 +19,6 @@ st.set_page_config(
     page_title='Pathes dashboard',
     page_icon=':earth_asia:', # This is an emoji shortcode. Could be a URL too.
 )
-
-# -----------------------------------------------------------------------------
-# Declare some useful functions.
-
-@st.cache_data
-
-def check_symmtric(sorted_df):
-    difference_no_nan = (sorted_df != sorted_df.transpose()) & sorted_df.notna() & sorted_df.transpose().notna()
-    asymmetric_elements_no_nan = difference_no_nan[difference_no_nan].stack()
-
-    for index in asymmetric_elements_no_nan.index:
-        original_value = sorted_df.loc[index]
-        transpose_value = sorted_df.T.loc[index]
-        print(f"Asymmetry at {index}: Original = {original_value}, Transpose = {transpose_value}")
-        return False
-
-    return True
-
-def find_pathes(previous, end_point):
-    if not previous[end_point]:
-        return [[end_point]]
-    pathes = []
-    for i in previous[end_point]:
-        #tmp_path.append(i)
-        sub_path = find_pathes(previous, i)
-        print(sub_path,i)
-        for sub in sub_path:
-            pathes.append(sub + [end_point])
-    return pathes
-
-
-def calc_dis_path(n, start_point, end_point):
-    dist = [np.inf] * n  # define shortest distance
-    visited = [False] * n  # define visit status
-    previous = [[] for _ in range(n)]
-    dist[start_point] = 0
-
-    for _ in range(n):  # loop for every points we did not visit
-        u = -1
-        min_distance = inf
-
-        for i in range(n):
-            if not visited[i] and dist[i] < min_distance:
-                min_distance = dist[i]
-                u = i
-        if u == -1:
-            break
-
-        for j in range(n):
-            if visited[j] == False and np_network[u][j] != inf:
-                new_distance = dist[u] + np_network[u][j]  # where dist[u] is min_distance
-                print(u, j, new_distance, dist[u], np_network[u][j])
-                if new_distance < dist[j]:
-                    dist[j] = new_distance
-                    print("here we update: distance j ", j, " with ", new_distance)
-                    previous[j] = [u]
-                elif new_distance == dist[j]:
-                    previous[j].append(u)
-        visited[u] = True
-
-    return previous, dist
-
-
-def find_lowest_price1(city_pair="EDI-LHR", start_date=datetime.today().strftime('%Y-%m-%d')):
-    origin, destination = city_pair.split("-")
-
-    driver = webdriver.Chrome()
-
-    driver.get(f"https://www.kayak.com/flights/{origin}-{destination}/{start_date}?ucs=8liajb&sort=price_a")
-
-    time.sleep(20)
-
-    content = driver.page_source
-
-    soup = BeautifulSoup(content, 'html.parser')
-
-    prices = []
-    for div in soup.findAll('div', attrs={'class': 'f8F1-price-text'}):
-        price_text = div.text.strip()  
-        if price_text.startswith('$'):
-            price = int(price_text[1:])  
-            prices.append(price)
-    driver.quit()
-    if prices:
-        min_price = min(prices)
-        st.write(f"The minimum price of {city_pair} on {start_date} is: ${min_price}")
-        return min_price
-    else:
-        st.write(f"No prices found for {city_pair} on {start_date}")
-        return None
-
-
-
-def find_lowest_price(city_pair="EDI-LHR", start_date=datetime.today().strftime('%Y-%m-%d')):
-    origin, destination = city_pair.split("-")
-    url = f"https://www.kayak.com/flights/{origin}-{destination}/{start_date}?ucs=8liajb&sort=price_a"
-
-    headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
-    }
-    response = requests.get(url, headers=headers)
-
-    # 检查是否抓取成功
-    if response.status_code != 200:
-        st.write(f"Failed to retrieve data for {city_pair} on {start_date}")
-        return None
-
-    soup = BeautifulSoup(response.content, 'html.parser')
-    prices = []
-    for div in soup.findAll('div', attrs={'class': 'f8F1-price-text'}):
-        price_text = div.text.strip()
-        if price_text.startswith('$'):
-            price = int(price_text[1:])
-            prices.append(price)
-
-    if prices:
-        min_price = min(prices)
-        st.write(f"The minimum price of {city_pair} on {start_date} is: ${min_price}")
-        return min_price
-    else:
-        st.write(f"No prices found for {city_pair} on {start_date}")
-        return None
-
 
 # -----------------------------------------------------------------------------
 # Draw the actual page
@@ -155,43 +33,29 @@ st.markdown("""
 </div>
 </p>
 <p>
-The Dijkstra Algorithm is applied to search for the shortest path between two stations in a specified network <a href='https://data.worldbank.org/'>Details</a>.
+Dijkstra's Algorithm is a widely used algorithm to find the single-source shortest path problem in graphs with non-negative edge weights.  
+
+- For more information about this algorithm, please check the Wikipedia on [Dijkstra's Algorithm](https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm) .
+
+- We provide a portable dashboard application with several additional features including finding the minimum number of transfers and the lowest prices from KAYAK website.
+    For more details, check the [Idea Source](https://medium.com/@jefersonmsantos/easy-and-fast-flight-price-monitor-with-python-db241a12f1e) and [Repository](https://github.com/jefersonmsantos/flight_monitopr/tree/master).
+
+- The GitHub repository is available on [Link](https://github.com/phy-guanzh/Dijkstra_Algorithm/tree/main).
 </p>
 """, unsafe_allow_html=True)
 # Add some spacing
 ''
+
 ''
 
 inf = np.inf
-map_image_path = os.path.join(os.path.dirname(__file__), "test.png")
+map_image_path = os.path.join(os.path.dirname(__file__), "plots/Default_map2.png")
 img = mpimg.imread(map_image_path)
 
 img_width, img_height = 53.5709, (29)*1.8
 plt.figure(figsize=(10, 8))
 plt.imshow(img, extent=[0, img_width, 0, img_height])
 st.pyplot(plt)
-
-city_coordinates = {
-    "Edinburgh": [55.9533, -3.1883],
-    "London": [51.5074, -0.1278],
-    "Madrid":  [40.4168,	-3.7038],
-    "Rome":  [41.9028, 12.4964],
-    "Budapest":  [47.4979, 19.0402],
-    "Kyiv":  [50.4501, 30.5234],
-    "Istanbul":  [41.0082, 28.9784],
-    "Baku":  [40.4093, 49.8671],
-    "Donetsk":  [48.0159, 37.8029],
-    "Moscow":  [55.7558, 37.6173],
-    "Saint Petersburg":  [59.9343, 30.3351],
-    "Stockholm":  [59.3293, 18.0686],
-    "Hamburg":  [53.5511, 9.9937],
-    "Tromsø":  [69.6496, 18.9560],
-    "Murmansk":  [68.9585, 33.0827],
-    "Arkhangelsk":  [64.5399, 40.5152],
-    "Ulyanovsk":  [54.3142, 48.4031],
-    "Bergen":  [60.3913, 5.3221],
-    "Oulu":  [65.0121, 25.4651]
-}
 
 network = {
     "Edinburgh": {"London": 1, "Bergen": 2, "Hamburg": 2},
@@ -203,14 +67,14 @@ network = {
     "Istanbul": {"Budapest": 2, "Baku": 3, "Rome": 2, "Kyiv": 2,"Donetsk": 2},
     "Baku": {"Istanbul": 3,"Donetsk": 2,"Ulyanovsk": 6},
     "Donetsk": {"Kyiv": 1, "Moscow": 1, "Istanbul": 2, "Baku": 2, "Ulyanovsk":2 },
-    "Moscow": {"Donetsk": 1, "Ulyanovsk": 1, "Saint Petersburg": 1,"Kyiv": 1, "Arkhangelsk":3},  # Ulyanovsk 是加粗线路
+    "Moscow": {"Donetsk": 1, "Ulyanovsk": 1, "Saint Petersburg": 1,"Kyiv": 1, "Arkhangelsk":3},
     "Saint Petersburg": {"Moscow": 1, "Stockholm": 2, "Oulu": 1, "Kyiv": 2, "Arkhangelsk":2 },
-    "Stockholm": {"Saint Petersburg": 2, "Hamburg": 2, "Oulu": 2, "Budapest": 3 , "Kyiv": 3},  # Oulu 是加粗线路
+    "Stockholm": {"Saint Petersburg": 2, "Hamburg": 2, "Oulu": 2, "Budapest": 3 , "Kyiv": 3},
     "Hamburg": {"Stockholm": 2, "London": 1, "Edinburgh": 2, "Rome": 3,"Budapest": 2,  "Bergen": 2 },
     "Tromsø": {"Murmansk": 2, "Bergen":4, "Oulu": 2},
     "Murmansk": {"Tromsø": 2, "Arkhangelsk": 2, "Oulu": 4},
     "Arkhangelsk": {"Murmansk": 2, "Ulyanovsk": 4, "Moscow": 3, "Saint Petersburg": 2,"Oulu":2 },
-    "Ulyanovsk": {"Arkhangelsk": 4, "Moscow": 1, "Donetsk":2,  "Baku": 6 },  # Moscow 和 Arkhangelsk 是加粗线路
+    "Ulyanovsk": {"Arkhangelsk": 4, "Moscow": 1, "Donetsk":2,  "Baku": 6 },
     "Bergen": {"Edinburgh": 2, "Stockholm": 2, "Hamburg":2, "Tromsø": 4, "Oulu": 4},
     "Oulu": {"Stockholm": 2, "Murmansk": 4, "Tromsø":2, "Saint Petersburg":1, "Arkhangelsk":2,  "Bergen": 4 }
 }
@@ -218,7 +82,7 @@ network = {
 df = pd.DataFrame(network)
 sorted_df = df.sort_index(axis=0).sort_index(axis=1)
 
-uploaded_file = st.file_uploader("Choose a CSV file to upload, otherwise default network will be used:", type="csv")
+uploaded_file = st.file_uploader("Choose a CSV file to upload, otherwise default network shown above will be used:", type="csv")
 upload_settings = st.checkbox(
     "index names included",
     help="Check this box when the index names are included in your csv files :)"
@@ -245,7 +109,6 @@ np_network = np.array(sorted_df) #transform to an array for better efficiency
 
 #define varibales
 
-
 countries = sorted([i for i in sorted_df.columns])
 
 if not len(countries):
@@ -267,7 +130,7 @@ n = len(np_network)
 start_point = sorted_df.index.get_loc(start_station)
 end_point = sorted_df.index.get_loc(end_station)
 
-previous, dist = calc_dis_path(n, start_point, end_point)
+previous, dist = calc_dis_path(n, start_point, end_point, np_network)
 allpath = find_pathes(previous, end_point)
 with_min_transfer_path = []
 transfer_times = inf
@@ -294,7 +157,7 @@ if transfer_times_settings:
         st.write("->".join(map(str, sorted_df.columns[best_path])))
 
 lowest_price_settings = st.checkbox(
-    "Prefer lowest price with solid price",
+    "Prefer lowest price with real-time price",
     help="Check this box when you prefer the lowest price to travel:)                                              "
          "\n **NOTE: This function is only available for local runs as the ticket price is automatically retrieved in real-time from the KAYAK website.**"
 )
@@ -325,7 +188,6 @@ under_war = ["KBP", "DOK", "SVO", "LED","MMK", "ARH", "ULV"]
 formatted_routes = []
 total_price = 0
 
-
 progress_bar = st.progress(0)
 status = st.empty()
 if lowest_price_settings:
@@ -337,16 +199,16 @@ if lowest_price_settings:
         st.write(f"&nbsp;&nbsp;**{i}.** " + " -> ".join(map(str, sorted_df.columns[path])))
         if any(item in airport_list for item in under_war):
             st.write("**ATTENTION:** Due to the ongoing war, some airports selected are currently unavailable in the function:(    "
-                     "\n:earth_asia: **Hope for world peace!!**")
+                     "\n:earth_asia: **World Peace!!**")
             break
         for i in range(len(airport_list) - 1):
             progress_bar.progress(i)
             formatted_routes.append(f"{airport_list[i]}-{airport_list[i + 1]}")
-            total_price += find_lowest_price1(city_pair=f"{airport_list[i]}-{airport_list[i + 1]}")
+            total_price += find_lowest_price(city_pair=f"**{airport_list[i]}-{airport_list[i + 1]}**")
             progress_bar.progress(int(100*(i+1)/(len(airport_list) - 1)))
             status.write(f" {100*(i+1)/(len(airport_list) - 1)}% complete")
 
-        st.write("*Total prices* $",f"{total_price}")
+        st.write("Total prices $",f"**{total_price}**")
 
 
 
