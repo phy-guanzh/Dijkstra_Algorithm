@@ -20,12 +20,12 @@ class Dijkstra:
         inf = np.inf
         
         #define variables
-        Ys = {item: inf for item in df.columns}
+        Ys = {item: inf for item in df.columns} #distance from start point to point 'item'
         Ys[start_point] = 0
-        S = [start_point]
-        P = {item: [] for item in df.columns}  # define a path which starts from start point
+        S = [start_point] # define a set S which contains all visited points
+        P = {item: [] for item in df.columns}  # P is used to store the shortest paths
         P[start_point].append(start_point)
-        Pre = {item: [] for item in df.columns}  # define a path which starts from start point
+        Pre = {item: [] for item in df.columns}  # define dic Pre which stores the previous point before point 'item'
 
         return Ys, S, P, Pre
 
@@ -36,13 +36,13 @@ class Dijkstra:
         Output: sigma_s
         '''
 
-        # find all pairs where one is from S and the other one not from S
+        # find all pairs where one is from S and the other one is not from S
         sigma_s = [
             [i, j]
             for i in S
             for j in df_path.columns
             if j not in S
-               and not pd.isna(df_path.loc[i, j])
+               and not pd.isna(df_path.loc[i, j]) #the path should exist
         ]
 
         return sigma_s

@@ -13,10 +13,10 @@ To run the algorithm locally, follow these steps:
 
 1. Clone the repository:
    ```bash
-   git clone git@github.com:phy-guanzh/Dijkstra_algorithm.git
+   $ git clone git@github.com:phy-guanzh/Dijkstra_algorithm.git
    ```
 2. Run the script:
-    ```bash
+    ```python
    python Dijkstra_main.py -f [file_path] -s [start_point] -e [end_point]
    ```
    
@@ -39,13 +39,13 @@ You can either access the online application or run it locally.
 
    (1) Install the **requirements**
 
-   ```
+   ```bash
    $ pip install -r requirements.txt
    ```
 
    (2) Start the Streamlit dashboard application
 
-   ```
+   ```bash
    $ streamlit run streamlit_app.py
    ```
 
