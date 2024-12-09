@@ -16,7 +16,7 @@ To run the algorithm locally, follow these steps:
 
 1. Clone the repository:
    ```bash
-   $ git clone git@github.com:phy-guanzh/Dijkstra_algorithm.git
+   $ git clone git@github.com:phy-guanzh/Dijkstra_Astar_algorithm.git
    ```
 2. Run the script:
     ```python
@@ -58,7 +58,7 @@ To run A* algorithm locally, follow these steps:
 
 1. Clone the repository:
    ```bash
-   $ git clone git@github.com:phy-guanzh/Dijkstra_algorithm.git
+   $ git clone git@github.com:phy-guanzh/Dijkstra_Astar_algorithm.git
    ```
 2. Run the script:
     ```python
