@@ -60,7 +60,7 @@ $$Y(i) + l_{i j} + h(j)$$
 
 where the heuristic function $h(j)$ is to estimate the cost from current node $j$ to the end target $t$. In this project, the Euclidean Distance is the heuristic function.
 
-$$ \text { H(j, t) }=\sqrt{(\Delta_{jt} \text { Latitude })^2+(\Delta_{jt} \mathrm{Longitude})^2} $$
+$$ H(j, t) =\sqrt((\Delta_{jt} \text { Latitude })^2+(\Delta_{jt} \mathrm{Longitude})^2) $$
 
 To run A* algorithm locally, follow these steps:
 
