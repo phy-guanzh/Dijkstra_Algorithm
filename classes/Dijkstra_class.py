@@ -11,10 +11,6 @@ class Dijkstra:
         output: Ys, S, P, Pre
         '''
         
-        if not start_point:
-            print("Error: Invalid start_point detected! Use -h for more information.")
-            exit(1)
-        
         #add the index of rows
         df = df.sort_index(axis=0)
         inf = np.inf
@@ -126,9 +122,14 @@ class Dijkstra:
         output:list
         '''
 
+        if start_point not in df.columns:
+            print("Error: Invalid start_point detected! Double check the name or Use -h for more information.")
+            exit(1)
+
         if (end_point not in df.columns) and end_point != "all":
             print("Error: Invalid end_point detected! Double check the name or Use -h for more information.")
             exit(1)
+
 
         #call initial variable function
         Ys, S, P, Pre = Dijkstra._input(df, start_point)
@@ -142,8 +143,7 @@ class Dijkstra:
 
         #loop process below until all points are in visited sets S 
         while not all(col in S for col in points_end):
-            #progress = len(S) / total_columns * 100
-            #print(f'Progress: {progress:.2f}% ({len(S)}/{total_columns} columns processed)')
+
             sig_s = Dijkstra._find_sigma_s(df, S)
             cloest_sets, cloest_distance = Dijkstra._find_cloest_outpoints(df, sig_s, Ys)
             Pre, Ys, S = Dijkstra._update_Pre_Y_S(Pre, Ys, S, cloest_sets, cloest_distance)

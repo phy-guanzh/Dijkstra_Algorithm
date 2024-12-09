@@ -20,13 +20,13 @@ To run the algorithm locally, follow these steps:
    ```
 2. Run the script:
     ```python
-   python Dijkstra_main.py -f [file_path] -s [start_point] -e [end_point]
+   python Dijkstra_main.py -f [file_path] -s [start_point] -e [end_point] -u [cost_unit]
    ```
    
    - **`file_path`**: Path to the map file (e.g., `data/network.csv`). If omitted, the default `data/network.csv` file will be used.
    - **`start_point`**: The starting node for the algorithm.
    - **`end_point`**: The target node. If omitted, all possible routes from the start point will be displayed.
-   
+   - **`cost_unit`**: The unit of cost. If omitted, unit hour(h) will be used.
 
 #### 2. Streamlit Dashboard
 
@@ -54,6 +54,14 @@ You can either access the online application or run it locally.
 
 ### - A* Algorithm 
 
+The main framework for A* is the same as the framework for Dijkstra Algorithm, but the cost function \texttt{\_find\_closest\_outpoints} would be 
+
+$$Y(i) + l_{i j} + h(j)$$ 
+
+where the heuristic function $h(j)$ is to estimate the cost from current node $j$ to the end target $t$. In this project, the Euclidean Distance is the heuristic function.
+
+$$ \text { H(j, t) }=\sqrt{(\Delta_{jt} \text { Latitude })^2+(\Delta_{jt} \mathrm{Longitude})^2} $$
+
 To run A* algorithm locally, follow these steps:
 
 1. Clone the repository:
@@ -62,13 +70,14 @@ To run A* algorithm locally, follow these steps:
    ```
 2. Run the script:
     ```python
-   python Astar_main.py -f [file_path] -w [heuristics_data]-s [start_point] -e [end_point]
+   python Astar_main.py -f [file_path] -w [heuristics_data]-s [start_point] -e [end_point] -u [cost_unit]
    ```
    
    - **`file_path`**: Path to the map file (e.g., `data/network.csv`). If omitted, the default `data/network.csv` file will be used.
    - **`heuristics_data`**: Heuristics data applied to the map file (e.g., `data/city_coordinates.csv`). 
    - **`start_point`**: The starting node for the algorithm.
    - **`end_point`**: The target node. If omitted, all possible routes from the start point will be displayed.
+   - **`cost_unit`**: The unit of cost. If omitted, unit hour(h) will be used.
    
 ## Local Execution Example
 

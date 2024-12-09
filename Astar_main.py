@@ -1,8 +1,9 @@
 import argparse
 from classes.Astar_class import *
 
-def Astar_main():
 
+def Astar_main():
+    start_time = time.time()
     print(f'**Welcome to Astar* Algorithm tool**')
     parser = argparse.ArgumentParser(description='inputs can be: map path, start_point and end point')
 
@@ -37,6 +38,7 @@ def Astar_main():
         exit(1)
 
     Astar.find_shortest_path(df, df_h, start_point, end_point, unit)
+
 
 if __name__ == '__main__':
     Astar_main()

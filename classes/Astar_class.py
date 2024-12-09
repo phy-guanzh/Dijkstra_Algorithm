@@ -167,6 +167,9 @@ class Astar:
         find and return the shortest path(es)
         output:list
         '''
+        if start_point not in df.columns:
+            print("Error: Invalid start_point detected! Double check the name or Use -h for more information.")
+            exit(1)
 
         if (end_point not in df.columns) and end_point != "all":
             print("Error: Invalid end_point detected! Double check the name or Use -h for more information.")
@@ -183,8 +186,7 @@ class Astar:
         )
         #loop process below until all points are in visited sets S 
         while not all(col in S for col in points_end):
-            #progress = len(S) / total_columns * 100
-            #print(f'Progress: {progress:.2f}% ({len(S)}/{total_columns} columns processed)')
+
             sig_s = Astar._find_sigma_s(df, S)
             cloest_sets, cloest_distance = Astar._find_cloest_outpoints(df, sig_s, Ys, H)
             Pre, Ys, S = Astar._update_Pre_Y_S(Pre, Ys, S, cloest_sets, cloest_distance)
