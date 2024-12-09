@@ -54,7 +54,7 @@ You can either access the online application or run it locally.
 
 ### - A* Algorithm 
 
-The main framework for A* is the same as the framework for Dijkstra Algorithm, but the cost function \texttt{\_find\_closest\_outpoints} would be 
+The main framework for A* is the same as the framework for Dijkstra Algorithm, but the cost function `_find_closest_outpoints` would be 
 
 $$Y(i) + l_{i j} + h(j)$$ 
 
