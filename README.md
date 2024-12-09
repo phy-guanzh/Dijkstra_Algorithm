@@ -114,7 +114,7 @@ To run A* algorithm locally, follow these steps:
          E  NaN  4.0  2.0  1.0  NaN
          Start Point: A 
          End Point: C 
-         Time: 4.0, 
+         Cost: 4.0 h, 
          Path: A->D->C or A->D->E->C 
       ```
    
@@ -141,7 +141,7 @@ To run A* algorithm locally, follow these steps:
          [19 rows x 19 columns]
          Start Point: Arkhangelsk 
          End Point: London 
-         Time: 7.0, 
+         Cost: 7.0 h, 
          Path: Arkhangelsk->Oulu->Stockholm->Hamburg->London or Arkhangelsk->Saint Petersburg->Stockholm->Hamburg->London 
       ```
       
