@@ -1,11 +1,14 @@
-# 🌏 Dijkstra Algorithm Application
+# 🌏 Dijkstra and A*(A-star) Algorithm Application
 
 ## Introduction
-Dijkstra's Algorithm is a widely used algorithm to solve the single-source shortest path problem in graphs with non-negative edge weights. It is applicable in fields like network routing and mapping.
+Dijkstra and A* Algorithm are  widely used algorithms to solve the single-source shortest path problem in graphs with non-negative edge weights. It is applicable in fields like network routing and mapping.
 
-For more information, check the [Wikipedia on Dijkstra's Algorithm](https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm).
+For more information, check the [Wikipedia on Dijkstra's Algorithm](https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm) 
+and [Wikipedia on A-star Algorithm](https://en.wikipedia.org/wiki/A*_search_algorithm).
 
 ## How to run
+
+### - Dijkstra Algorithm 
 
 #### 1. Local Execution
 
@@ -49,6 +52,24 @@ You can either access the online application or run it locally.
    $ streamlit run streamlit_app.py
    ```
 
+### - A* Algorithm 
+
+To run A* algorithm locally, follow these steps:
+
+1. Clone the repository:
+   ```bash
+   $ git clone git@github.com:phy-guanzh/Dijkstra_algorithm.git
+   ```
+2. Run the script:
+    ```python
+   python Astar_main.py -f [file_path] -w [heuristics_data]-s [start_point] -e [end_point]
+   ```
+   
+   - **`file_path`**: Path to the map file (e.g., `data/network.csv`). If omitted, the default `data/network.csv` file will be used.
+   - **`heuristics_data`**: Heuristics data applied to the map file (e.g., `data/city_coordinates.csv`). 
+   - **`start_point`**: The starting node for the algorithm.
+   - **`end_point`**: The target node. If omitted, all possible routes from the start point will be displayed.
+   
 ## Local Execution Example
 
    1. **Example1:** <br>
@@ -71,7 +92,7 @@ You can either access the online application or run it locally.
       ```python
       python Dijkstra_main.py -f data/default.csv -s A -e D
       ```
-   
+        
       *Output:*
       ```
       Welcome Dijktra Algorithm
@@ -99,9 +120,13 @@ You can either access the online application or run it locally.
       ```python
       python Dijkstra_main.py -f data/network.csv -s Arkhangelsk -e London
       ```
+      or A* Algorithm:
+      ```python
+       python Astar_main.py -f data/network.csv -w data/city_coordinates.csv -s Arkhangelsk -e London
+      ```
       *Output*
       ```
-      Welcome Dijktra Algorithm
+      Welcome Dijktra/Astar Algorithm
          Map will be processed: 
          ...
          [19 rows x 19 columns]

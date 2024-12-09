@@ -120,30 +120,33 @@ class Dijkstra:
         return P
 
     @staticmethod
-    def find_shortest_path(df: pd.DataFrame, start_point: str, end_point: str = 'all') -> list:
+    def find_shortest_path(df: pd.DataFrame, start_point: str, end_point: str = 'all', unit: str = "h") -> list:
         '''
         find and return the shortest path(es)
         output:list
         '''
-        
+
+        if (end_point not in df.columns) and end_point != "all":
+            print("Error: Invalid end_point detected! Double check the name or Use -h for more information.")
+            exit(1)
+
         #call initial variable function
         Ys, S, P, Pre = Dijkstra._input(df, start_point)
-        
-        #loop process below until all points are in visited sets S 
-        while not all(col in S for col in df.columns):
 
-            sig_s = Dijkstra._find_sigma_s(df, S)
-
-            cloest_sets, cloest_distance = Dijkstra._find_cloest_outpoints(df, sig_s, Ys)
-
-            Pre, Ys, S = Dijkstra._update_Pre_Y_S(Pre, Ys, S, cloest_sets, cloest_distance)
-
-        # if end_point is not specified, print all paths from start point 
+        # if end_point is not specified, detect all paths from start point
         points_end = (
-            [end_point] if isinstance(end_point, str)
-            else df.columns if end_point == 'all'
+            df.columns if end_point == 'all'
+            else [end_point] if isinstance(end_point, str)
             else end_point
         )
+
+        #loop process below until all points are in visited sets S 
+        while not all(col in S for col in points_end):
+            #progress = len(S) / total_columns * 100
+            #print(f'Progress: {progress:.2f}% ({len(S)}/{total_columns} columns processed)')
+            sig_s = Dijkstra._find_sigma_s(df, S)
+            cloest_sets, cloest_distance = Dijkstra._find_cloest_outpoints(df, sig_s, Ys)
+            Pre, Ys, S = Dijkstra._update_Pre_Y_S(Pre, Ys, S, cloest_sets, cloest_distance)
 
         P = {i: Dijkstra._find_P(Pre, i) for i in points_end}
         Ys = {i : Ys[i] for i in Ys if i in points_end}
@@ -153,7 +156,7 @@ class Dijkstra:
             (
                 f'Start Point: {start_point} \n'
                 f'End Point: {item} \n'
-                f'Time: {Ys[item]} h, \n'
+                f'Cost: {Ys[item]} {unit}, \n'
                 f'Path: {" or ".join("->".join(item2[::-1]) for item2 in P[item])} \n'
             )
             for item in points_end
