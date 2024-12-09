@@ -6,6 +6,7 @@ from classes.Dijkstra_class import *
 def Dijktra_main():
 
     print(f'**Welcome to Dijktra Algorithm tool**')
+    print(f'**Please visit https://github.com/phy-guanzh/Dijkstra_Astar_Algorithm/tree/main for more information** \n')
     parser = argparse.ArgumentParser(description='inputs can be: map path, start_point and end point')
 
     parser.add_argument('-f', '--file_path', default='data/network.csv', help='the csv map path')

@@ -3,8 +3,8 @@ from classes.Astar_class import *
 
 
 def Astar_main():
-    start_time = time.time()
     print(f'**Welcome to Astar* Algorithm tool**')
+    print(f'**Please visit https://github.com/phy-guanzh/Dijkstra_Astar_Algorithm/tree/main for more information** \n')
     parser = argparse.ArgumentParser(description='inputs can be: map path, start_point and end point')
 
     parser.add_argument('-f', '--file_path', default='data/network.csv', help='the csv map path')
